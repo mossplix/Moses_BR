@@ -1,6 +1,5 @@
 defmodule BrAppWeb.ReactionControllerTest do
   use BrAppWeb.ConnCase,  async: true
-  alias BrApp.Reaction
 
   @create_attrs %{
     action: "add",

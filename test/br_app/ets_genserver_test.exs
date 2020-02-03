@@ -11,14 +11,6 @@ defmodule BrApp.ETSGenserverTest do
         type: "reaction",
         user_id: "7488a646-e31f-11e4-aace-_g"
       }
-      @reaction2 %Reaction{
-        action: "remove",
-        content_id: "7488a646-e31f-11e4-aace-6003088_g",
-        reaction_type: "fire",
-        type: "reaction",
-        user_id: "7488a646-e31f-11e4-aace-_g"
-      }
-
       @reaction3 %Reaction{
         action: "add",
         content_id: "7488a646-e31f-11e4-aace-6003088_g",
@@ -26,17 +18,7 @@ defmodule BrApp.ETSGenserverTest do
         type: "reaction",
         user_id: "7488a646-e31f-11e4-aace-_gdh"
       }
-      @reaction4 %Reaction{
-        action: "add",
-        content_id: "7488a646-e31f-11e4-aace-6003088_g",
-        reaction_type: "fire",
-        type: "reaction",
-        user_id: "7488a646-e31f-11e4-aace-_gdhnn"
-      }
-  
-
-
-      test "querying existing reactions returns the correct number of fires", context do
+      test "querying existing reactions returns the correct number of fires"do
         assert ETSGenserver.add_reaction(@reaction1) == :ok
         assert ETSGenserver.add_reaction(@reaction1) == :ok
         assert ETSGenserver.add_reaction(@reaction1) == :ok
@@ -47,7 +29,7 @@ defmodule BrApp.ETSGenserverTest do
       end
 
      
-      test "querying none existing reactions returns :error", context do
+      test "querying none existing reactions returns :error" do
         assert ETSGenserver.search_reaction("foo") == {:error}
       end
 
