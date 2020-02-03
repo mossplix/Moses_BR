@@ -31,9 +31,10 @@ defmodule BrApp.ETSGenserver do
   @doc """
   Looks up the number of fires of the content_d`.
   Returns `{:ok, number_of_fires}` if the content_id exists, `:error` otherwise.
+  use update counter to keep the read concurrency up
   """
   def search_reaction(content_id) do
-    fires = :ets.lookup_element(@content_counts, content_id, 2)
+    fires = :ets.update_counter(@content_counts, content_id, 0)
     {:ok, fires}
   rescue
     _ -> {:error}
@@ -92,11 +93,12 @@ defmodule BrApp.ETSGenserver do
   @doc """
    Initialize the genserver. We assume the writes to the ets tables will be infgrequent,
    hence we optimize for read_concurrency.
+   We use one 
   """
   @impl true
   def init(_) do
-    :ets.new(@user_reactions, [:set, :protected, :named_table, read_concurrency: true])
-    :ets.new(@content_counts, [:set, :protected, :named_table, read_concurrency: true])
+    :ets.new(@user_reactions, [:set, :public, :named_table, read_concurrency: true])
+    :ets.new(@content_counts, [:set, :public, :named_table, read_concurrency: true])
     {:ok, nil}
   end
 
