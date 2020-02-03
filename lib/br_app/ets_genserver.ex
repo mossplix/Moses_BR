@@ -91,14 +91,15 @@ defmodule BrApp.ETSGenserver do
   ##################
 
   @doc """
-   Initialize the genserver. We assume the writes to the ets tables will be infgrequent,
+   Initialize the genserver. We assume the writes to the user_reactions ets table will be infgrequent,
    hence we optimize for read_concurrency.
-   We use one 
+   we optimize the content_counts table to write concurrency and only use update_counter for it
+   
   """
   @impl true
   def init(_) do
     :ets.new(@user_reactions, [:set, :public, :named_table, read_concurrency: true])
-    :ets.new(@content_counts, [:set, :public, :named_table, read_concurrency: true])
+    :ets.new(@content_counts, [:set, :public, :named_table, write_concurrency: true])
     {:ok, nil}
   end
 
