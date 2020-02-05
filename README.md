@@ -30,7 +30,7 @@ curl --header "Content-Type: application/json" --request POST --data '{"type": "
 
 **Getting reaction Counts**
 ```bash
-curl http://localhost:4000reaction_counts/056af828-2efe-4631-8446-c52cabb67367
+curl http://localhost:4000/reaction_counts/056af828-2efe-4631-8446-c52cabb67367
 ```
 
 
